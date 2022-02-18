@@ -1,0 +1,9 @@
+mode=markdown
+
+1. Item one
+2. Item two with code
+
+       ABC
+
+       DEF
+3. Item three

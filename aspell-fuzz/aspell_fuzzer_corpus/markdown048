@@ -1,0 +1,8 @@
+mode=markdown
+
+<h1
+>A Heading `and not code`
+</h1>
+
+`code`
+end

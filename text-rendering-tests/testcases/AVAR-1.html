@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+    xmlns:ft="https://github.com/OpenType/fonttest"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Vollkorn|Vollkorn:i"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<h3 id="AVAR-1">AVAR–1: Weight Flattening</h3>
+
+<div class="desc">
+  The <a href="../fonts/TestAVAR.ttf">font</a> for this test case is a
+  variation font with a single axis.  While the <em>‘gvar’</em> table
+  does a regular interpolation without any special quirks, the
+  font’s <em>‘avar’</em> table defines a mapping that modifies the
+  variation axis.
+</div>
+<div class="desc">A correct implementation should
+  produce the test glyph in its maximally thin shape at axis value
+  100. The resulting glyph should become bolder until 250,
+  then <em>stay at the exact same weight</em> until 650, then become
+  bolder up to the maximum at 900.
+</div>
+
+<table>
+  <tr>
+    <th></th>
+    <td>100</td>
+    <td>150</td>
+    <td>200</td>
+    <td>250</td>
+    <td>300</td>
+    <td>350</td>
+    <td>400</td>
+    <td>450</td>
+    <td>500</td>
+    <td>550</td>
+    <td>600</td>
+    <td>650</td>
+    <td>700</td>
+    <td>750</td>
+    <td>800</td>
+    <td>850</td>
+    <td>900</td>
+  </tr>
+  <tr>
+    <th>Curve</th>
+    <td colspan="17">
+      <svg x="0%" y="0%" height="100%" width="100%"
+           preserveAspectRatio="xMidYMid meet" viewBox="-10 -110 4510 220">
+        <g fill="none" stroke="black" stroke-width="2">
+          <path d="M 0,-90 L 840,0 L 3100,0 L 4500,90" />
+        </g>
+        <circle cx="0" cy="-90" r="10" />
+        <circle cx="840" cy="0" r="10" />
+        <circle cx="1700" cy="0" r="10" />
+        <circle cx="3100" cy="0" r="10" />
+        <circle cx="4500" cy="90" r="10" />
+      </svg>
+    </td>
+  </tr>
+  <tr>
+    <th>Expected</th>
+
+    <td class="expected" ft:id="AVAR-1/100"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:100"><svg version="1.1" viewBox="0 -200 960 1200"><symbol id="AVAR-1/100.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-80 Q583,-80 670,-29 Q757,22 808,109 Q860,197 860,301 Q860,404 808,491 Q757,578 670,629 Q583,680 480,680 Q377,680 289,629 Q202,578 151,491 Q100,404 100,301 Q100,197 151,109 Q202,22 289,-29 Q377,-80 480,-80 Z M780,310 L780,290 L180,290 L180,310 Z M490,0 L470,0 L470,600 L490,600 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/100.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/150"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:150"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/150.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-58 Q577,-58 659,-10 Q741,38 789,120 Q838,203 838,301 Q838,398 789,480 Q741,562 659,610 Q577,658 480,658 Q383,658 300,610 Q218,562 170,480 Q122,398 122,301 Q122,203 170,120 Q218,38 300,-10 Q383,-58 480,-58 Z M756,321 L756,279 L204,279 L204,321 Z M501,24 L459,24 L459,576 L501,576 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/150.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/200"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:200"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/200.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-37 Q571,-37 648,8 Q726,54 771,131 Q817,209 817,301 Q817,392 771,469 Q726,546 648,591 Q571,637 480,637 Q388,637 311,591 Q234,546 188,469 Q143,392 143,301 Q143,209 188,131 Q234,54 311,8 Q388,-37 480,-37 Z M731,331 L731,268 L229,268 L229,331 Z M512,49 L449,49 L448,551 L512,551 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/200.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/250"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:250"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/250.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-15 Q565,-15 637,27 Q710,70 752,142 Q795,215 795,301 Q795,386 752,458 Q710,530 637,572 Q565,615 480,615 Q394,615 322,572 Q250,530 207,458 Q165,386 165,301 Q165,215 207,142 Q250,70 322,27 Q394,-15 480,-15 Z M707,342 L707,257 L253,257 L253,342 Z M523,73 L438,73 L437,527 L523,527 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/250.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/300"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:300"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/300.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-15 Q565,-15 637,27 Q710,70 752,142 Q795,215 795,301 Q795,386 752,458 Q710,530 637,572 Q565,615 480,615 Q394,615 322,572 Q250,530 207,458 Q165,386 165,301 Q165,215 207,142 Q250,70 322,27 Q394,-15 480,-15 Z M707,342 L707,257 L253,257 L253,342 Z M523,73 L438,73 L437,527 L523,527 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/300.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/350"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:350"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/350.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-15 Q565,-15 637,27 Q710,70 752,142 Q795,215 795,301 Q795,386 752,458 Q710,530 637,572 Q565,615 480,615 Q394,615 322,572 Q250,530 207,458 Q165,386 165,301 Q165,215 207,142 Q250,70 322,27 Q394,-15 480,-15 Z M707,342 L707,257 L253,257 L253,342 Z M523,73 L438,73 L437,527 L523,527 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/350.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/400"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:400"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/400.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-15 Q565,-15 637,27 Q710,70 752,142 Q795,215 795,301 Q795,386 752,458 Q710,530 637,572 Q565,615 480,615 Q394,615 322,572 Q250,530 207,458 Q165,386 165,301 Q165,215 207,142 Q250,70 322,27 Q394,-15 480,-15 Z M707,342 L707,257 L253,257 L253,342 Z M523,73 L438,73 L437,527 L523,527 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/400.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/450"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:450"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/450.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-15 Q565,-15 637,27 Q710,70 752,142 Q795,215 795,301 Q795,386 752,458 Q710,530 637,572 Q565,615 480,615 Q394,615 322,572 Q250,530 207,458 Q165,386 165,301 Q165,215 207,142 Q250,70 322,27 Q394,-15 480,-15 Z M707,342 L707,257 L253,257 L253,342 Z M523,73 L438,73 L437,527 L523,527 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/450.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/500"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:500"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/500.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-15 Q565,-15 637,27 Q710,70 752,142 Q795,215 795,301 Q795,386 752,458 Q710,530 637,572 Q565,615 480,615 Q394,615 322,572 Q250,530 207,458 Q165,386 165,301 Q165,215 207,142 Q250,70 322,27 Q394,-15 480,-15 Z M707,342 L707,257 L253,257 L253,342 Z M523,73 L438,73 L437,527 L523,527 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/500.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/550"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:550"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/550.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-15 Q565,-15 637,27 Q710,70 752,142 Q795,215 795,301 Q795,386 752,458 Q710,530 637,572 Q565,615 480,615 Q394,615 322,572 Q250,530 207,458 Q165,386 165,301 Q165,215 207,142 Q250,70 322,27 Q394,-15 480,-15 Z M707,342 L707,257 L253,257 L253,342 Z M523,73 L438,73 L437,527 L523,527 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/550.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/600"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:600"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/600.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-15 Q565,-15 637,27 Q710,70 752,142 Q795,215 795,301 Q795,386 752,458 Q710,530 637,572 Q565,615 480,615 Q394,615 322,572 Q250,530 207,458 Q165,386 165,301 Q165,215 207,142 Q250,70 322,27 Q394,-15 480,-15 Z M707,342 L707,257 L253,257 L253,342 Z M523,73 L438,73 L437,527 L523,527 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/600.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/650"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:650"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/650.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,-15 Q565,-15 637,27 Q710,70 752,142 Q795,215 795,301 Q795,386 752,458 Q710,530 637,572 Q565,615 480,615 Q394,615 322,572 Q250,530 207,458 Q165,386 165,301 Q165,215 207,142 Q250,70 322,27 Q394,-15 480,-15 Z M707,342 L707,257 L253,257 L253,342 Z M523,73 L438,73 L437,527 L523,527 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/650.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/700"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:700"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/700.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,4 Q560,4 628,44 Q696,84 736,152 Q776,220 776,301 Q776,381 736,448 Q696,516 628,556 Q560,596 480,596 Q399,596 331,556 Q264,516 224,448 Q184,381 184,301 Q184,220 224,152 Q264,84 331,44 Q399,4 480,4 Z M695,349 L695,251 L265,251 L265,349 Z M529,85 L432,85 L431,515 L529,515 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/700.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/750"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:750"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/750.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,23 Q555,23 618,60 Q682,98 719,161 Q757,225 757,301 Q757,376 719,439 Q682,502 618,539 Q555,577 480,577 Q404,577 341,539 Q278,502 240,439 Q203,376 203,301 Q203,225 240,161 Q278,98 341,60 Q404,23 480,23 Z M682,355 L682,244 L278,244 L278,355 Z M536,98 L426,98 L424,502 L536,502 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/750.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/800"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:800"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/800.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,42 Q550,42 609,76 Q669,111 703,171 Q738,231 738,301 Q738,370 703,429 Q669,489 609,523 Q550,558 480,558 Q410,558 350,523 Q291,489 256,430 Q222,371 222,301 Q222,231 256,171 Q291,111 350,76 Q410,42 480,42 Z M670,362 L670,238 L290,238 L290,362 Z M542,110 L419,110 L418,490 L542,490 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/800.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/850"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:850"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/850.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,61 Q545,61 600,93 Q655,125 687,180 Q719,236 719,301 Q719,365 687,420 Q655,475 600,507 Q545,539 480,539 Q415,539 360,507 Q305,475 273,420 Q241,366 241,301 Q241,236 273,180 Q305,125 360,93 Q415,61 480,61 Z M657,368 L657,231 L303,231 L303,368 Z M549,123 L413,123 L411,477 L549,477 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/850.gid1" /></svg></td>
+
+    <td class="expected" ft:id="AVAR-1/900"
+        ft:render="⨁" ft:font="TestAVAR.ttf" ft:var="TEST:900"><svg version="1.1" viewBox="0 -199 960 1199"><symbol id="AVAR-1/900.gid1" overflow="visible"><path d="M480,-100 Q371,-100 279,-46 Q188,8 134,100 Q80,192 80,301 Q80,409 134,501 Q188,593 279,646 Q371,700 480,700 Q588,700 680,646 Q772,592 826,500 Q880,409 880,301 Q880,192 826,100 Q772,8 680,-46 Q588,-100 480,-100 Z M480,80 Q540,80 590,109 Q641,139 670,190 Q700,241 700,301 Q700,360 670,410 Q641,461 590,490 Q540,520 480,520 Q420,520 369,490 Q319,461 289,411 Q260,361 260,301 Q260,241 289,190 Q319,139 369,109 Q420,80 480,80 Z M645,375 L645,225 L315,225 L315,375 Z M555,135 L407,135 L405,465 L555,465 Z" /></symbol><use x="0" y="0" xlink:href="#AVAR-1/900.gid1" /></svg></td>
+
+  </tr>
+
+  <tr>
+    <th>Observed</th>
+    <td class="observed" ft:id="AVAR-1/100"/>
+    <td class="observed" ft:id="AVAR-1/150"/>
+    <td class="observed" ft:id="AVAR-1/200"/>
+    <td class="observed" ft:id="AVAR-1/250"/>
+    <td class="observed" ft:id="AVAR-1/300"/>
+    <td class="observed" ft:id="AVAR-1/350"/>
+    <td class="observed" ft:id="AVAR-1/400"/>
+    <td class="observed" ft:id="AVAR-1/450"/>
+    <td class="observed" ft:id="AVAR-1/500"/>
+    <td class="observed" ft:id="AVAR-1/550"/>
+    <td class="observed" ft:id="AVAR-1/600"/>
+    <td class="observed" ft:id="AVAR-1/650"/>
+    <td class="observed" ft:id="AVAR-1/700"/>
+    <td class="observed" ft:id="AVAR-1/750"/>
+    <td class="observed" ft:id="AVAR-1/800"/>
+    <td class="observed" ft:id="AVAR-1/850"/>
+    <td class="observed" ft:id="AVAR-1/900"/>
+  </tr>
+
+  <tr>
+    <th class="conformance-header">Conformance</th>
+    <td class="conformance" ft:id="AVAR-1/100"/>
+    <td class="conformance" ft:id="AVAR-1/150"/>
+    <td class="conformance" ft:id="AVAR-1/200"/>
+    <td class="conformance" ft:id="AVAR-1/250"/>
+    <td class="conformance" ft:id="AVAR-1/300"/>
+    <td class="conformance" ft:id="AVAR-1/350"/>
+    <td class="conformance" ft:id="AVAR-1/400"/>
+    <td class="conformance" ft:id="AVAR-1/450"/>
+    <td class="conformance" ft:id="AVAR-1/500"/>
+    <td class="conformance" ft:id="AVAR-1/550"/>
+    <td class="conformance" ft:id="AVAR-1/600"/>
+    <td class="conformance" ft:id="AVAR-1/650"/>
+    <td class="conformance" ft:id="AVAR-1/700"/>
+    <td class="conformance" ft:id="AVAR-1/750"/>
+    <td class="conformance" ft:id="AVAR-1/800"/>
+    <td class="conformance" ft:id="AVAR-1/850"/>
+    <td class="conformance" ft:id="AVAR-1/900"/>
+  </tr>
+
+</table>
+
+</body>
+</html>

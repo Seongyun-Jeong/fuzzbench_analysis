@@ -1,0 +1,6 @@
+mode=markdown
+
+[ref]:
+  #target
+   "label"
+done

@@ -1,0 +1,4 @@
+mode=markdown
+
+begin <atag !!!
+>text</atag> end

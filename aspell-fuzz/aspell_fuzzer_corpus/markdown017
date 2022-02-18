@@ -1,0 +1,5 @@
+mode=markdown
+
+begin ``ABC
+`DEF`
+`` end

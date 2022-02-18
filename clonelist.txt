@@ -1,0 +1,78 @@
+RUN git clone --depth=1 https://github.com/apache/arrow.git $SRC/arrow
+RUN git clone https://github.com/gnuaspell/aspell.git $SRC/aspell
+RUN git clone --depth 1 -b master https://github.com/gnuaspell/aspell-fuzz.git $SRC/aspell-fuzz
+RUN git clone --depth 1 https://github.com/google/bloaty.git bloaty
+RUN git clone --depth 1 https://github.com/curl/curl.git /src/curl
+RUN git clone https://github.com/curl/curl-fuzzer.git /src/curl_fuzzer
+RUN git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
+RUN git clone -n https://gitlab.freedesktop.org/mesa/drm.git
+RUN git clone --depth 1 https://github.com/mstorsjo/fdk-aac.git
+RUN git clone --depth 1 git://anongit.freedesktop.org/xorg/lib/libXext
+RUN git clone -n git://anongit.freedesktop.org/git/xorg/lib/libXfixes
+RUN git clone --depth 1 https://github.com/intel/libva
+RUN git clone --depth 1 -b libvdpau-1.2 git://people.freedesktop.org/~aplattner/libvdpau
+RUN git clone --depth 1 https://chromium.googlesource.com/webm/libvpx
+RUN git clone --depth 1 https://github.com/xiph/ogg
+RUN git clone --depth 1 https://github.com/xiph/opus
+RUN git clone --depth 1 https://github.com/xiph/theora
+RUN git clone --depth 1 https://github.com/xiph/vorbis
+RUN git clone --depth 1 https://code.videolan.org/videolan/x264.git
+RUN git clone --depth 1 https://bitbucket.org/multicoreware/x265_git.git
+RUN git clone --depth 1 https://github.com/file/file.git
+RUN git clone git://git.sv.nongnu.org/freetype/freetype2.git
+RUN git clone https://github.com/unicode-org/text-rendering-tests.git TRT
+RUN git clone https://github.com/GrokImageCompression/grok.git grok
+RUN git clone https://github.com/GrokImageCompression/grok-test-data.git grok/data
+RUN git clone https://github.com/behdad/harfbuzz.git
+RUN git clone --depth 1 https://github.com/open-source-parsers/jsoncpp
+RUN git clone https://github.com/mm2/Little-CMS.git
+RUN git clone --depth 1 https://github.com/libarchive/libarchive.git
+RUN git clone https://github.com/libgit2/libgit2 libgit2
+RUN git clone https://android.googlesource.com/platform/external/libhevc
+RUN git clone https://github.com/OISF/libhtp.git libhtp
+RUN git clone https://github.com/libjpeg-turbo/libjpeg-turbo.git
+RUN git clone --depth 1 https://github.com/the-tcpdump-group/libpcap.git libpcap
+RUN git clone --depth=1 https://github.com/the-tcpdump-group/tcpdump.git tcpdump
+RUN git clone https://gitlab.gnome.org/GNOME/libxml2.git
+RUN git clone https://gitlab.gnome.org/GNOME/libxml2.git
+RUN git clone --depth 1 https://gitlab.gnome.org/GNOME/libxml2.git
+RUN git clone --depth 1 https://gitlab.gnome.org/GNOME/libxslt.git
+RUN git clone --depth 1 git://git.code.sf.net/p/matio/matio matio
+RUN git clone --recursive --depth 1 https://github.com/ARMmbed/mbedtls.git mbedtls
+RUN git clone --depth 1 https://github.com/google/boringssl.git boringssl
+RUN git clone --depth 1 https://github.com/openssl/openssl.git openssl
+RUN git clone https://github.com/ARMmbed/mbed-crypto mbedtls/crypto
+RUN git clone --depth 1 https://github.com/mruby/mruby mruby
+RUN git clone --depth 1 https://github.com/bshastry/mruby_seeds.git mruby_seeds
+RUN git clone https://github.com/beltoforion/muparser.git muparser
+RUN git clone --depth 1 https://github.com/ntop/nDPI.git ndpi
+RUN git clone --depth 1 https://github.com/cisco/openh264.git openh264
+RUN git clone --depth 1 https://github.com/openssl/openssl.git
+RUN git clone https://github.com/openthread/openthread.git
+RUN git clone --depth 1 --branch master https://github.com/php/php-src.git php-src
+RUN git clone https://github.com/kkos/oniguruma.git php-src/oniguruma
+RUN git clone --depth 1 --branch master https://github.com/php/php-src.git php-src
+RUN git clone https://github.com/kkos/oniguruma.git php-src/oniguruma
+RUN git clone --depth 1 --branch master https://github.com/php/php-src.git php-src
+RUN git clone https://github.com/kkos/oniguruma.git php-src/oniguruma
+RUN git clone --depth 1 https://anongit.freedesktop.org/git/poppler/poppler.git
+RUN git clone --depth 1 git://git.sv.nongnu.org/freetype/freetype2.git
+RUN git clone --depth 1 https://github.com/mozilla/pdf.js pdf.js && \
+RUN git clone https://github.com/OSGeo/PROJ
+RUN git clone --depth 1 https://github.com/OSGeo/proj.4 proj.4
+RUN git clone --depth 1 --branch master https://github.com/bellard/quickjs quickjs
+RUN git clone https://github.com/google/re2.git
+RUN git clone --depth 1 https://github.com/nothings/stb.git
+RUN git clone --depth 1 https://github.com/systemd/systemd systemd
+RUN git clone https://github.com/systemd/systemd systemd
+RUN git clone --depth 1 https://chromium.googlesource.com/chromiumos/third_party/tpm2
+RUN git clone --branch oss-fuzz https://github.com/weinrank/usrsctp usrsctp
+RUN git clone https://github.com/xiph/ogg.git
+RUN git clone https://github.com/xiph/vorbis.git
+RUN git clone --depth=1 https://gitlab.com/wireshark/wireshark.git
+RUN git clone --depth=1 https://bitbucket.org/jwzawadzki/wireshark-fuzzdb.git
+RUN git clone https://github.com/google/woff2.git
+RUN git clone https://github.com/google/brotli.git
+RUN git clone https://github.com/google/oss-fuzz.git
+RUN git clone --depth 1 -b develop https://github.com/madler/zlib.git
+RUN git clone https://github.com/facebook/zstd

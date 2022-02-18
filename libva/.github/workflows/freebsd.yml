@@ -1,0 +1,26 @@
+name: freebsd
+
+on:
+  push:
+    paths-ignore:
+    - '.github/workflows/**'
+    - '!.github/workflows/freebsd.yml'
+  pull_request:
+    paths-ignore:
+    - '.github/workflows/**'
+    - '!.github/workflows/freebsd.yml'
+
+jobs:
+  freebsd:
+    runs-on: macos-10.15
+    steps:
+    - uses: actions/checkout@v2
+    - name: test
+      uses: vmactions/freebsd-vm@v0.1.5
+      with:
+        prepare: |
+          pkg install -y meson pkgconf libdrm libXext libXfixes wayland
+          pkg install -y -x '^mesa($|-libs)'
+        run: |
+          meson _build
+          meson compile -C _build

@@ -1,0 +1,13 @@
+sudo: required
+language: generic
+services:
+    - docker
+
+matrix:
+    include:
+        - env: ENGINE=libfuzzer SANITIZER=address
+        - env: ENGINE=libfuzzer SANITIZER=coverage
+        - env: ENGINE=afl SANITIZER=address
+
+script:
+  - ./travisoss.sh ${ENGINE} ${SANITIZER}

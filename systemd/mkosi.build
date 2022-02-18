@@ -1,0 +1,121 @@
+#!/bin/sh
+# SPDX-License-Identifier: LGPL-2.1-or-later
+set -e
+
+# This is a build script for OS image generation using mkosi (https://github.com/systemd/mkosi).
+# Simply invoke "mkosi" in the project directory to build an OS image.
+
+# On Fedora "ld" is (unfortunately — if you ask me) managed via
+# "alternatives". Since we'd like to support building images in environments
+# with only /usr/ around (e.g. mkosi's UsrOnly=1 option), we have the problem
+# that /usr/bin/ld is a symlink that points to a non-existing file in
+# /etc/alternative/ in this mode. Let's work around this for now by manually
+# redirect "ld" to "ld.bfd", i.e. circumventing the /usr/bin/ld symlink.
+if [ ! -x /usr/bin/ld ] && [ -x /usr/bin/ld.bfd ]; then
+        mkdir -p "$HOME"/bin
+        ln -s /usr/bin/ld.bfd "$HOME"/bin/ld
+        PATH="$HOME/bin:$PATH"
+fi
+
+# If mkosi.builddir/ exists mkosi will set $BUILDDIR to it, let's then use it
+# as out-of-tree build dir. Otherwise, let's make up our own builddir.
+[ -z "$BUILDDIR" ] && BUILDDIR=build
+
+# Meson uses Python 3 and requires a locale with an UTF-8 character map.
+# Not running under UTF-8 makes the `ninja test` step break with a CodecError.
+# So let's ensure we're running under UTF-8.
+#
+# If our current locale already is UTF-8, then we don't need to do anything:
+if [ "$(locale charmap 2>/dev/null)" != "UTF-8" ] ; then
+        # Try using C.UTF-8 locale, if available. This locale is not shipped
+        # by upstream glibc, so it's not available in all distros.
+        # (In particular, it's not available in Arch Linux.)
+        if locale -a | grep -q -E "C.UTF-8|C.utf8"; then
+                export LC_CTYPE=C.UTF-8
+        # Finally, try something like en_US.UTF-8, which should be
+        # available in Arch Linux, but is not present in Debian's
+        # minimal image in our mkosi config.
+        elif locale -a | grep -q en_US.utf8; then
+                export LC_CTYPE=en_US.UTF-8
+        else
+                # If nothing works, fail early.
+                echo "*** Could not find a valid locale that supports UTF-8. ***" >&2
+                exit 1
+        fi
+fi
+
+if [ ! -f "$BUILDDIR"/build.ninja ] ; then
+        sysvinit_path=$(realpath /etc/init.d)
+
+        init_path=$(realpath /sbin/init 2>/dev/null)
+        if [ -z "$init_path" ] ; then
+            rootprefix=""
+        else
+            rootprefix=${init_path%/lib/systemd/systemd}
+            rootprefix=/${rootprefix#/}
+        fi
+
+        meson "$BUILDDIR" \
+                -D "sysvinit-path=$sysvinit_path" \
+                -D "rootprefix=$rootprefix" \
+                -D man=false \
+                -D translations=false \
+                -D version-tag="${VERSION_TAG}"
+fi
+
+cd "$BUILDDIR"
+ninja "$@"
+if [ "$WITH_TESTS" = 1 ] ; then
+        for id in 1 2 3; do
+                getent group $id >/dev/null || groupadd -g $id testgroup$id
+        done
+
+        ninja test
+fi
+cd "$SRCDIR"
+
+# Ubuntu Focal is stuck with meson 0.53.0.
+if [ "$(meson -v | cut -d . -f 2)" -gt 53 ] ; then
+        meson install -C "$BUILDDIR" --quiet --no-rebuild --only-changed
+else
+        meson install -C "$BUILDDIR" --no-rebuild --only-changed
+fi
+
+mkdir -p "$DESTDIR"/etc
+
+cat >"$DESTDIR"/etc/issue <<EOF
+\S (built from systemd tree)
+Kernel \r on an \m (\l)
+
+EOF
+
+if [ -n "$IMAGE_ID" ] ; then
+    mkdir -p "$DESTDIR"/usr/lib
+    sed -n \
+        -e '/^IMAGE_ID=/!p' \
+        -e "\$aIMAGE_ID=$IMAGE_ID" <"/usr/lib/os-release" >"${DESTDIR}/usr/lib/os-release"
+
+    OSRELEASEFILE="$DESTDIR"/usr/lib/os-release
+else
+    OSRELEASEFILE=/usr/lib/os-release
+fi
+
+
+if [ -n "$IMAGE_VERSION" ] ; then
+    mkdir -p "$DESTDIR"/usr/lib
+    sed -n \
+        -e '/^IMAGE_VERSION=/!p' \
+        -e "\$aIMAGE_VERSION=$IMAGE_VERSION" <$OSRELEASEFILE >"/tmp/os-release.tmp"
+
+    cat /tmp/os-release.tmp > "$DESTDIR"/usr/lib/os-release
+    rm /tmp/os-release.tmp
+fi
+
+# If $CI_BUILD is set, copy over the CI service which executes a service check
+# after boot and then shuts down the machine
+if [ -n "$CI_BUILD" ]; then
+    mkdir -p "$DESTDIR/usr/lib/systemd/system"
+    cp -v "$SRCDIR/test/mkosi-check-and-shutdown.service" "$DESTDIR/usr/lib/systemd/system/mkosi-check-and-shutdown.service"
+    cp -v "$SRCDIR/test/mkosi-check-and-shutdown.sh" "$DESTDIR/usr/lib/systemd/mkosi-check-and-shutdown.sh"
+    chmod +x "$DESTDIR/usr/lib/systemd/mkosi-check-and-shutdown.sh"
+fi

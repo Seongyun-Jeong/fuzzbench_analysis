@@ -1,0 +1,9 @@
+mode=markdown
+
+<script>
+I can be multiline.
+
+<not a tag> `I am NOT code`
+</script>
+And now I am no longer in the block:
+<not a tag> `I am NOT code`

@@ -1,0 +1,3 @@
+mode=markdown
+
+begin <a href="link">label</a> end

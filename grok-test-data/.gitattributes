@@ -1,0 +1,10 @@
+*.pgx binary
+*.tif binary
+*.png binary
+*.raw binary
+*.j2k binary
+*.jp2 binary
+*.jpc binary
+*.j2c binary
+*.ppm binary
+*.pgm binary

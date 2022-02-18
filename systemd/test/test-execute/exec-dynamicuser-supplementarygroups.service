@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: LGPL-2.1-or-later
+[Unit]
+Description=Test DynamicUser with SupplementaryGroups=
+
+[Service]
+ExecStart=/bin/sh -x -c 'HAVE=0; for g in $$(id -G); do test "$$g" = "1" && HAVE=1; done; test "$$HAVE" -eq 1'
+ExecStart=/bin/sh -x -c 'HAVE=0; for g in $$(id -G); do test "$$g" = "2" && HAVE=1; done; test "$$HAVE" -eq 1'
+ExecStart=/bin/sh -x -c 'HAVE=0; for g in $$(id -G); do test "$$g" = "3" && HAVE=1; done; test "$$HAVE" -eq 1'
+Type=oneshot
+DynamicUser=yes
+SupplementaryGroups=1 2 3

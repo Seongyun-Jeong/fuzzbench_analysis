@@ -1,0 +1,51 @@
+mode=html
+
+<!-- phase 1 - SGML comments. -->
+reportthiszphaseONE
+ <!-- ** 1.0 Valid comments... This file is full of them.  -->
+ <!-- ** 1.1 invalid open comment: -->
+<!- not in a comment>reportthisyes</!->
+
+ <!-- ** 1.2 invalid close comment: -->
+<!-- -- > spallwhat DON'T REPORT -> spallwhat DON'T REPORT -->
+
+<!-- phase 1.5 - special entity encodings -->
+reportthisphaseONEFIVE
+ &nbsp; don't&nbsp;report&nbsp;this
+ &#011; do not&#x20;report this.
+ do not&gt;report this.
+ this &amp; that.
+
+<!-- phase 2 - special skip tags -->
+reportthisphaseTWO
+<SCRIPT> spallwhat DON'T REPORT </SCRIPT> reportthisyes
+<style> spallwhat DON'T REPORT </style> reportthisyes
+<STYLE something="yes yes"
+      > spallwhat DON'T REPORT </style > reportthisyes
+<script/> reportthisyes  <!-- XHTML style terminated tag -->
+<script someattrib=value/> reportthisyes  <!-- XHTML style terminated tag -->
+<!-- Nested skip tags -->
+<script> spallwhatnoreport <script> nonoreport </script><b>hello</b> nonoreport</script>reportthisyes
+
+<!-- phase 3 - special 'include this' attributes -->
+reportthisphaseTHREE
+<tagname alt="image text reportthisyes" alt2=spallwhat altt="spallwhat don't report">
+<tagname ALT="image text reportthisyes" ALT2=spallwhat AL="spallwhat don't report">
+
+<!-- phase 4 - attribute value quoteing and escaping -->
+reportthisphaseoneFOUR
+<checkthis attribute111=simple/value.value >
+<checkagain SOMEattrib   =   "whoa boy, mimimimspelled  ">
+<singlequotes gotcha=   'singlypingly quoted///'>
+<dblescaped gogogogo="dontcheck \">still in dontcheck\\\" still in dontcheck"> reportthisyes.
+<dBLmore TomTomTomTom="so many escapes: \\\\\\\\"> reportthisyes.
+<dblescaped gogogogo='dontcheck \'>still in dontcheck\\\' still in dontcheck'> reportthisyes.
+<dBLmore TomTomTomTom='so many escapes: \\\\\\\\'> reportthisyes.
+<mixnmatch scanhere='">dontcheck \"dontcheck \'dontcheck' alt=reportthisyes>
+
+<!-- phase 5 - questionable (though all too common) constructs -->
+reportthisphaseFIVE
+<tag=dontreport> reportthisyes <tag hahahahhaha>reportthisyes
+<!-- this one is from Yahoo! -->
+<td width=1%><img src="http://wellll/thereeee/nowwww" alt="cool stuff">
+<td width=1%><img src=http://wellll/thereeee/nowwww alt=real cool stuff>

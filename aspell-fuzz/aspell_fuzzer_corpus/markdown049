@@ -1,0 +1,8 @@
+mode=markdown
+
+<sometag>
+`not code`
+
+`code`
+
+</sometag>

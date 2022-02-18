@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+    xmlns:ft="https://github.com/OpenType/fonttest"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Vollkorn|Vollkorn:i"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<h3 id="GPOS-1">GPOS–1: Pair Adjustment Positioning</h3>
+
+<div class="desc">
+  The <a href="../fonts/TestGPOSOne.ttf">font</a> for this test case
+  contains a <em>‘GPOS’</em> table whose <em>‘kern’</em> feature enables
+  a lookup of type 2
+  for <a href="https://www.microsoft.com/typography/otspec/gpos.htm#PP">Pair
+  Adjustment Positioning</a>.  The lookup contains <em>two</em> subtables:
+</div>
+
+
+<ul style="margin-left:4em;margin-right:4em">
+  <li style="margin-bottom:.5em">
+    First, a <em>PairPos format 1</em> subtable that adjusts the
+    spacing between pairs of <em>individual letters</em>.
+    For example, when <em>Ą</em> and <em>J</em>
+    stand next to each other, their shapes would overlap. From
+    a typographic perspective, this would look rather terrible,
+    so this subtable puts them further apart.
+  </li>
+
+  <li>
+    Second, a <em>PairPos format 2</em> subtable that adjusts the
+    spacing betwen <em>glyph classes</em>. For example, when
+    they appear on the left-hand side of a letter pair, this subtable
+    categorizes the letters <em>A Á Ą</em> into one particular class,
+    <em>G Ģ</em> into another, and <em>V</em> into yet another class.
+    The same happens for the right-hand side: <em>a á ą</em> are put
+    into one glyph class, <em>f ﬁ ﬂ</em> into another, and so on.
+    Finally, the subtable contains a table how to change the spacing
+    for each combination of classes. Compared to format 1, this
+    encoding can be more compact.
+  </li>
+</ul>
+
+<div class="desc">
+  If you see touching or overlapping glyph pairs in the rendering,
+  it’s a sign that your implementation fails to handle
+  <em>‘GPOS’</em> tables with type 2 lookups for <em>Pair Adjustment
+  Positioning.</em>
+</div>
+
+<table>
+  <tr>
+    <th>Expected</th>
+    <td class="expected" ft:id="GPOS-1/1"
+        ft:render="ĄJ" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 1028 1383"><symbol id="GPOS-1/1.Aogonek" overflow="visible"><path d="M658,0 L463,0 Q459,6 459,16 Q459,27 466,36 L533,44 L469,210 L197,210 L135,46 L193,46 Q209,46 209,32 Q209,25 204,8 L202,0 L10,0 Q6,6 6,16 Q6,27 13,36 L80,44 L314,647 Q324,649 336,649 Q348,649 358,647 L591,46 L649,46 Q665,46 665,32 Q665,25 660,8 Z M452,255 L333,569 L214,255 Z M608,0 L658,0 Q578,-45 578,-93 Q578,-133 623,-133 Q642,-133 654,-129 Q663,-144 663,-164 Q633,-179 599,-179 Q526,-179 526,-107 Q526,-44 608,0 Z" /></symbol><symbol id="GPOS-1/1.J" overflow="visible"><path d="M125,184 L125,599 L57,599 Q41,599 41,613 Q41,620 46,637 L48,645 L261,645 Q265,639 265,629 Q265,618 258,609 L181,601 L181,201 Q181,77 140,0 Q99,-76 -4,-142 Q-22,-127 -29,-107 Q59,-40 92,23 Q125,87 125,184 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/1.Aogonek" /><use x="732" y="0" xlink:href="#GPOS-1/1.J" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/2"
+        ft:render="Ąg" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 1225 1383"><symbol id="GPOS-1/2.Aogonek" overflow="visible"><path d="M658,0 L463,0 Q459,6 459,16 Q459,27 466,36 L533,44 L469,210 L197,210 L135,46 L193,46 Q209,46 209,32 Q209,25 204,8 L202,0 L10,0 Q6,6 6,16 Q6,27 13,36 L80,44 L314,647 Q324,649 336,649 Q348,649 358,647 L591,46 L649,46 Q665,46 665,32 Q665,25 660,8 Z M452,255 L333,569 L214,255 Z M608,0 L658,0 Q578,-45 578,-93 Q578,-133 623,-133 Q642,-133 654,-129 Q663,-144 663,-164 Q633,-179 599,-179 Q526,-179 526,-107 Q526,-44 608,0 Z" /></symbol><symbol id="GPOS-1/2.g" overflow="visible"><path d="M199,97 L313,97 Q396,97 444,61 Q493,25 493,-36 Q493,-108 428,-151 Q363,-195 255,-195 Q150,-195 90,-156 Q30,-117 30,-49 Q30,25 117,74 Q92,94 92,129 Q92,177 141,220 Q86,266 86,345 Q86,419 134,464 Q183,510 262,510 Q330,510 375,476 L482,489 Q498,490 498,475 Q498,469 494,454 L491,443 L408,443 Q438,400 438,345 Q438,271 389,225 Q341,180 262,180 Q211,180 171,200 Q143,175 143,141 Q143,97 199,97 Z M313,53 L178,53 Q165,53 151,56 Q85,13 85,-46 Q85,-94 131,-122 Q177,-151 255,-151 Q338,-151 388,-119 Q438,-88 438,-36 Q438,53 313,53 Z M387,345 Q387,401 353,434 Q319,467 262,467 Q205,467 171,434 Q137,401 137,345 Q137,289 171,256 Q205,223 262,223 Q319,223 353,256 Q387,289 387,345 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/2.Aogonek" /><use x="692" y="0" xlink:href="#GPOS-1/2.g" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/3"
+        ft:render="Ąģ" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 1225 1383"><symbol id="GPOS-1/3.Aogonek" overflow="visible"><path d="M658,0 L463,0 Q459,6 459,16 Q459,27 466,36 L533,44 L469,210 L197,210 L135,46 L193,46 Q209,46 209,32 Q209,25 204,8 L202,0 L10,0 Q6,6 6,16 Q6,27 13,36 L80,44 L314,647 Q324,649 336,649 Q348,649 358,647 L591,46 L649,46 Q665,46 665,32 Q665,25 660,8 Z M452,255 L333,569 L214,255 Z M608,0 L658,0 Q578,-45 578,-93 Q578,-133 623,-133 Q642,-133 654,-129 Q663,-144 663,-164 Q633,-179 599,-179 Q526,-179 526,-107 Q526,-44 608,0 Z" /></symbol><symbol id="GPOS-1/3.gcommaabove" overflow="visible"><path d="M199,97 L313,97 Q396,97 444,61 Q493,25 493,-36 Q493,-108 428,-151 Q363,-195 255,-195 Q150,-195 90,-156 Q30,-117 30,-49 Q30,25 117,74 Q92,94 92,129 Q92,177 141,220 Q86,266 86,345 Q86,419 134,464 Q183,510 262,510 Q330,510 375,476 L482,489 Q498,490 498,475 Q498,469 494,454 L491,443 L408,443 Q438,400 438,345 Q438,271 389,225 Q341,180 262,180 Q211,180 171,200 Q143,175 143,141 Q143,97 199,97 Z M313,53 L178,53 Q165,53 151,56 Q85,13 85,-46 Q85,-94 131,-122 Q177,-151 255,-151 Q338,-151 388,-119 Q438,-88 438,-36 Q438,53 313,53 Z M387,345 Q387,401 353,434 Q319,467 262,467 Q205,467 171,434 Q137,401 137,345 Q137,289 171,256 Q205,223 262,223 Q319,223 353,256 Q387,289 387,345 Z M268,671 L302,650 Q306,640 306,631 Q306,590 262,590 Q214,590 214,645 Q214,669 230,707 Q246,746 271,780 Q292,777 304,765 Q272,707 268,671 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/3.Aogonek" /><use x="692" y="0" xlink:href="#GPOS-1/3.gcommaabove" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/4"
+        ft:render="Ąj" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 991 1383"><symbol id="GPOS-1/4.Aogonek" overflow="visible"><path d="M658,0 L463,0 Q459,6 459,16 Q459,27 466,36 L533,44 L469,210 L197,210 L135,46 L193,46 Q209,46 209,32 Q209,25 204,8 L202,0 L10,0 Q6,6 6,16 Q6,27 13,36 L80,44 L314,647 Q324,649 336,649 Q348,649 358,647 L591,46 L649,46 Q665,46 665,32 Q665,25 660,8 Z M452,255 L333,569 L214,255 Z M608,0 L658,0 Q578,-45 578,-93 Q578,-133 623,-133 Q642,-133 654,-129 Q663,-144 663,-164 Q633,-179 599,-179 Q526,-179 526,-107 Q526,-44 608,0 Z" /></symbol><symbol id="GPOS-1/4.j" overflow="visible"><path d="M100,134 L100,453 L19,453 Q16,461 16,467 Q16,476 22,486 L126,505 Q143,496 154,483 L154,151 Q154,27 113,-49 Q72,-126 -31,-192 Q-49,-179 -55,-158 Q35,-92 67,-30 Q100,31 100,134 Z M157,632 Q157,590 112,590 Q67,590 67,632 Q67,674 112,674 Q157,674 157,632 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/4.Aogonek" /><use x="752" y="0" xlink:href="#GPOS-1/4.j" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/5"
+        ft:render="Ąȷ" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 991 1383"><symbol id="GPOS-1/5.Aogonek" overflow="visible"><path d="M658,0 L463,0 Q459,6 459,16 Q459,27 466,36 L533,44 L469,210 L197,210 L135,46 L193,46 Q209,46 209,32 Q209,25 204,8 L202,0 L10,0 Q6,6 6,16 Q6,27 13,36 L80,44 L314,647 Q324,649 336,649 Q348,649 358,647 L591,46 L649,46 Q665,46 665,32 Q665,25 660,8 Z M452,255 L333,569 L214,255 Z M608,0 L658,0 Q578,-45 578,-93 Q578,-133 623,-133 Q642,-133 654,-129 Q663,-144 663,-164 Q633,-179 599,-179 Q526,-179 526,-107 Q526,-44 608,0 Z" /></symbol><symbol id="GPOS-1/5.dotlessj" overflow="visible"><path d="M100,134 L100,453 L19,453 Q16,461 16,467 Q16,476 22,486 L126,505 Q143,496 154,483 L154,151 Q154,27 113,-49 Q72,-126 -31,-192 Q-49,-179 -55,-158 Q35,-92 67,-30 Q100,31 100,134 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/5.Aogonek" /><use x="752" y="0" xlink:href="#GPOS-1/5.dotlessj" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/6"
+        ft:render="Qȷ" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 973 1383"><symbol id="GPOS-1/6.Q" overflow="visible"><path d="M343,-9 Q210,-8 130,82 Q50,173 50,323 Q50,473 131,564 Q213,655 347,655 Q481,655 562,564 Q644,473 644,323 Q644,196 584,111 Q524,26 423,1 Q462,-25 513,-38 Q564,-51 655,-61 Q657,-71 657,-77 Q657,-90 652,-105 Q459,-105 343,-9 Z M347,37 Q455,37 520,115 Q585,193 585,323 Q585,452 520,530 Q455,608 347,608 Q239,608 174,530 Q109,452 109,323 Q109,193 174,115 Q239,37 347,37 Z" /></symbol><symbol id="GPOS-1/6.dotlessj" overflow="visible"><path d="M100,134 L100,453 L19,453 Q16,461 16,467 Q16,476 22,486 L126,505 Q143,496 154,483 L154,151 Q154,27 113,-49 Q72,-126 -31,-192 Q-49,-179 -55,-158 Q35,-92 67,-30 Q100,31 100,134 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/6.Q" /><use x="734" y="0" xlink:href="#GPOS-1/6.dotlessj" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/7"
+        ft:render="ąj" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 827 1383"><symbol id="GPOS-1/7.aogonek" overflow="visible"><path d="M496,14 L397,-5 Q380,4 369,17 L374,89 Q308,-10 193,-10 Q124,-10 81,29 Q39,68 39,130 Q39,201 95,240 Q152,280 255,280 Q305,280 371,271 L371,311 Q371,465 232,465 Q153,465 81,417 Q62,432 62,454 Q143,510 232,510 Q423,510 423,311 L423,47 L499,47 Q502,40 502,33 Q502,25 496,14 Z M371,188 L371,228 Q339,232 309,234 Q279,237 255,237 Q94,237 94,132 Q94,88 122,61 Q151,34 198,34 Q264,34 317,81 Q371,129 371,188 Z M460,14 L496,14 Q415,-50 415,-95 Q415,-134 461,-134 Q479,-134 492,-130 Q501,-145 501,-163 Q474,-178 437,-178 Q365,-178 365,-107 Q365,-38 460,14 Z" /></symbol><symbol id="GPOS-1/7.j" overflow="visible"><path d="M100,134 L100,453 L19,453 Q16,461 16,467 Q16,476 22,486 L126,505 Q143,496 154,483 L154,151 Q154,27 113,-49 Q72,-126 -31,-192 Q-49,-179 -55,-158 Q35,-92 67,-30 Q100,31 100,134 Z M157,632 Q157,590 112,590 Q67,590 67,632 Q67,674 112,674 Q157,674 157,632 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/7.aogonek" /><use x="588" y="0" xlink:href="#GPOS-1/7.j" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/8"
+        ft:render="ąȷ" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 827 1383"><symbol id="GPOS-1/8.aogonek" overflow="visible"><path d="M496,14 L397,-5 Q380,4 369,17 L374,89 Q308,-10 193,-10 Q124,-10 81,29 Q39,68 39,130 Q39,201 95,240 Q152,280 255,280 Q305,280 371,271 L371,311 Q371,465 232,465 Q153,465 81,417 Q62,432 62,454 Q143,510 232,510 Q423,510 423,311 L423,47 L499,47 Q502,40 502,33 Q502,25 496,14 Z M371,188 L371,228 Q339,232 309,234 Q279,237 255,237 Q94,237 94,132 Q94,88 122,61 Q151,34 198,34 Q264,34 317,81 Q371,129 371,188 Z M460,14 L496,14 Q415,-50 415,-95 Q415,-134 461,-134 Q479,-134 492,-130 Q501,-145 501,-163 Q474,-178 437,-178 Q365,-178 365,-107 Q365,-38 460,14 Z" /></symbol><symbol id="GPOS-1/8.dotlessj" overflow="visible"><path d="M100,134 L100,453 L19,453 Q16,461 16,467 Q16,476 22,486 L126,505 Q143,496 154,483 L154,151 Q154,27 113,-49 Q72,-126 -31,-192 Q-49,-179 -55,-158 Q35,-92 67,-30 Q100,31 100,134 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/8.aogonek" /><use x="588" y="0" xlink:href="#GPOS-1/8.dotlessj" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/9"
+        ft:render="gȷ" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 802 1383"><symbol id="GPOS-1/9.g" overflow="visible"><path d="M199,97 L313,97 Q396,97 444,61 Q493,25 493,-36 Q493,-108 428,-151 Q363,-195 255,-195 Q150,-195 90,-156 Q30,-117 30,-49 Q30,25 117,74 Q92,94 92,129 Q92,177 141,220 Q86,266 86,345 Q86,419 134,464 Q183,510 262,510 Q330,510 375,476 L482,489 Q498,490 498,475 Q498,469 494,454 L491,443 L408,443 Q438,400 438,345 Q438,271 389,225 Q341,180 262,180 Q211,180 171,200 Q143,175 143,141 Q143,97 199,97 Z M313,53 L178,53 Q165,53 151,56 Q85,13 85,-46 Q85,-94 131,-122 Q177,-151 255,-151 Q338,-151 388,-119 Q438,-88 438,-36 Q438,53 313,53 Z M387,345 Q387,401 353,434 Q319,467 262,467 Q205,467 171,434 Q137,401 137,345 Q137,289 171,256 Q205,223 262,223 Q319,223 353,256 Q387,289 387,345 Z" /></symbol><symbol id="GPOS-1/9.dotlessj" overflow="visible"><path d="M100,134 L100,453 L19,453 Q16,461 16,467 Q16,476 22,486 L126,505 Q143,496 154,483 L154,151 Q154,27 113,-49 Q72,-126 -31,-192 Q-49,-179 -55,-158 Q35,-92 67,-30 Q100,31 100,134 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/9.g" /><use x="563" y="0" xlink:href="#GPOS-1/9.dotlessj" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/10"
+        ft:render="ģȷ" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 802 1383"><symbol id="GPOS-1/10.gcommaabove" overflow="visible"><path d="M199,97 L313,97 Q396,97 444,61 Q493,25 493,-36 Q493,-108 428,-151 Q363,-195 255,-195 Q150,-195 90,-156 Q30,-117 30,-49 Q30,25 117,74 Q92,94 92,129 Q92,177 141,220 Q86,266 86,345 Q86,419 134,464 Q183,510 262,510 Q330,510 375,476 L482,489 Q498,490 498,475 Q498,469 494,454 L491,443 L408,443 Q438,400 438,345 Q438,271 389,225 Q341,180 262,180 Q211,180 171,200 Q143,175 143,141 Q143,97 199,97 Z M313,53 L178,53 Q165,53 151,56 Q85,13 85,-46 Q85,-94 131,-122 Q177,-151 255,-151 Q338,-151 388,-119 Q438,-88 438,-36 Q438,53 313,53 Z M387,345 Q387,401 353,434 Q319,467 262,467 Q205,467 171,434 Q137,401 137,345 Q137,289 171,256 Q205,223 262,223 Q319,223 353,256 Q387,289 387,345 Z M268,671 L302,650 Q306,640 306,631 Q306,590 262,590 Q214,590 214,645 Q214,669 230,707 Q246,746 271,780 Q292,777 304,765 Q272,707 268,671 Z" /></symbol><symbol id="GPOS-1/10.dotlessj" overflow="visible"><path d="M100,134 L100,453 L19,453 Q16,461 16,467 Q16,476 22,486 L126,505 Q143,496 154,483 L154,151 Q154,27 113,-49 Q72,-126 -31,-192 Q-49,-179 -55,-158 Q35,-92 67,-30 Q100,31 100,134 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/10.gcommaabove" /><use x="563" y="0" xlink:href="#GPOS-1/10.dotlessj" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/11"
+        ft:render="ıȷ" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 573 1383"><symbol id="GPOS-1/11.dotlessi" overflow="visible"><path d="M247,0 L34,0 Q31,8 31,14 Q31,23 37,33 L115,41 L115,453 L34,453 Q31,461 31,467 Q31,476 37,486 L141,505 Q158,496 169,483 L169,43 L237,43 Q253,43 253,29 Q253,23 249,8 Z" /></symbol><symbol id="GPOS-1/11.dotlessj" overflow="visible"><path d="M100,134 L100,453 L19,453 Q16,461 16,467 Q16,476 22,486 L126,505 Q143,496 154,483 L154,151 Q154,27 113,-49 Q72,-126 -31,-192 Q-49,-179 -55,-158 Q35,-92 67,-30 Q100,31 100,134 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/11.dotlessi" /><use x="334" y="0" xlink:href="#GPOS-1/11.dotlessj" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/12"
+        ft:render="ųȷ" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 895 1383"><symbol id="GPOS-1/12.uogonek" overflow="visible"><path d="M564,14 L465,-5 Q448,4 437,17 L444,117 Q386,-10 257,-10 Q182,-10 141,38 Q100,87 100,175 L100,453 L24,453 Q21,461 21,467 Q21,476 27,486 L126,505 Q143,496 154,483 L154,175 Q154,34 264,34 Q334,34 385,94 Q437,154 437,234 L437,453 L361,453 Q358,461 358,467 Q358,476 364,486 L463,505 Q480,496 491,483 L491,47 L567,47 Q570,40 570,33 Q570,25 564,14 Z M528,14 L564,14 Q483,-50 483,-95 Q483,-134 529,-134 Q547,-134 560,-130 Q569,-145 569,-163 Q542,-178 505,-178 Q433,-178 433,-107 Q433,-38 528,14 Z" /></symbol><symbol id="GPOS-1/12.dotlessj" overflow="visible"><path d="M100,134 L100,453 L19,453 Q16,461 16,467 Q16,476 22,486 L126,505 Q143,496 154,483 L154,151 Q154,27 113,-49 Q72,-126 -31,-192 Q-49,-179 -55,-158 Q35,-92 67,-30 Q100,31 100,134 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/12.uogonek" /><use x="656" y="0" xlink:href="#GPOS-1/12.dotlessj" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/13"
+        ft:render="vȷ" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 826 1383"><symbol id="GPOS-1/13.v" overflow="visible"><path d="M268,-2 L80,457 L22,457 Q6,457 6,471 Q6,477 10,492 L12,500 L207,500 Q210,493 210,486 Q210,478 204,467 L136,459 L292,71 L445,457 L387,457 Q371,457 371,471 Q371,477 375,492 L377,500 L569,500 Q572,493 572,486 Q572,478 566,467 L498,459 L310,-2 Q302,-4 289,-4 Q276,-4 268,-2 Z" /></symbol><symbol id="GPOS-1/13.dotlessj" overflow="visible"><path d="M100,134 L100,453 L19,453 Q16,461 16,467 Q16,476 22,486 L126,505 Q143,496 154,483 L154,151 Q154,27 113,-49 Q72,-126 -31,-192 Q-49,-179 -55,-158 Q35,-92 67,-30 Q100,31 100,134 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/13.v" /><use x="587" y="0" xlink:href="#GPOS-1/13.dotlessj" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/14"
+        ft:render="Va" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 1117 1383"><symbol id="GPOS-1/14.V" overflow="visible"><path d="M300,-2 L77,599 L19,599 Q3,599 3,613 Q3,620 8,637 L10,645 L206,645 Q210,639 210,629 Q210,618 203,609 L136,601 L325,82 L514,599 L456,599 Q440,599 440,613 Q440,620 445,637 L447,645 L638,645 Q642,639 642,629 Q642,618 635,609 L568,601 L344,-2 Q334,-4 322,-4 Q310,-4 300,-2 Z" /></symbol><symbol id="GPOS-1/14.a" overflow="visible"><path d="M496,14 L397,-5 Q380,4 369,17 L374,89 Q308,-10 193,-10 Q124,-10 81,29 Q39,68 39,130 Q39,201 95,240 Q152,280 255,280 Q305,280 371,271 L371,311 Q371,465 232,465 Q153,465 81,417 Q62,432 62,454 Q143,510 232,510 Q423,510 423,311 L423,47 L499,47 Q502,40 502,33 Q502,25 496,14 Z M371,188 L371,228 Q339,232 309,234 Q279,237 255,237 Q94,237 94,132 Q94,88 122,61 Q151,34 198,34 Q264,34 317,81 Q371,129 371,188 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/14.V" /><use x="594" y="0" xlink:href="#GPOS-1/14.a" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/15"
+        ft:render="Vá" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 1117 1383"><symbol id="GPOS-1/15.V" overflow="visible"><path d="M300,-2 L77,599 L19,599 Q3,599 3,613 Q3,620 8,637 L10,645 L206,645 Q210,639 210,629 Q210,618 203,609 L136,601 L325,82 L514,599 L456,599 Q440,599 440,613 Q440,620 445,637 L447,645 L638,645 Q642,639 642,629 Q642,618 635,609 L568,601 L344,-2 Q334,-4 322,-4 Q310,-4 300,-2 Z" /></symbol><symbol id="GPOS-1/15.aacute" overflow="visible"><path d="M496,14 L397,-5 Q380,4 369,17 L374,89 Q308,-10 193,-10 Q124,-10 81,29 Q39,68 39,130 Q39,201 95,240 Q152,280 255,280 Q305,280 371,271 L371,311 Q371,465 232,465 Q153,465 81,417 Q62,432 62,454 Q143,510 232,510 Q423,510 423,311 L423,47 L499,47 Q502,40 502,33 Q502,25 496,14 Z M371,188 L371,228 Q339,232 309,234 Q279,237 255,237 Q94,237 94,132 Q94,88 122,61 Q151,34 198,34 Q264,34 317,81 Q371,129 371,188 Z M292,644 L193,556 Q175,568 166,581 L253,683 L304,735 Q329,715 343,697 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/15.V" /><use x="594" y="0" xlink:href="#GPOS-1/15.aacute" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/16"
+        ft:render="Vą" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 1117 1383"><symbol id="GPOS-1/16.V" overflow="visible"><path d="M300,-2 L77,599 L19,599 Q3,599 3,613 Q3,620 8,637 L10,645 L206,645 Q210,639 210,629 Q210,618 203,609 L136,601 L325,82 L514,599 L456,599 Q440,599 440,613 Q440,620 445,637 L447,645 L638,645 Q642,639 642,629 Q642,618 635,609 L568,601 L344,-2 Q334,-4 322,-4 Q310,-4 300,-2 Z" /></symbol><symbol id="GPOS-1/16.aogonek" overflow="visible"><path d="M496,14 L397,-5 Q380,4 369,17 L374,89 Q308,-10 193,-10 Q124,-10 81,29 Q39,68 39,130 Q39,201 95,240 Q152,280 255,280 Q305,280 371,271 L371,311 Q371,465 232,465 Q153,465 81,417 Q62,432 62,454 Q143,510 232,510 Q423,510 423,311 L423,47 L499,47 Q502,40 502,33 Q502,25 496,14 Z M371,188 L371,228 Q339,232 309,234 Q279,237 255,237 Q94,237 94,132 Q94,88 122,61 Q151,34 198,34 Q264,34 317,81 Q371,129 371,188 Z M460,14 L496,14 Q415,-50 415,-95 Q415,-134 461,-134 Q479,-134 492,-130 Q501,-145 501,-163 Q474,-178 437,-178 Q365,-178 365,-107 Q365,-38 460,14 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/16.V" /><use x="594" y="0" xlink:href="#GPOS-1/16.aogonek" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/17"
+        ft:render="Vf" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 996 1383"><symbol id="GPOS-1/17.V" overflow="visible"><path d="M300,-2 L77,599 L19,599 Q3,599 3,613 Q3,620 8,637 L10,645 L206,645 Q210,639 210,629 Q210,618 203,609 L136,601 L325,82 L514,599 L456,599 Q440,599 440,613 Q440,620 445,637 L447,645 L638,645 Q642,639 642,629 Q642,618 635,609 L568,601 L344,-2 Q334,-4 322,-4 Q310,-4 300,-2 Z" /></symbol><symbol id="GPOS-1/17.f" overflow="visible"><path d="M277,0 L44,0 Q41,8 41,14 Q41,23 47,33 L115,41 L115,456 L39,456 Q36,464 36,470 Q36,480 42,490 L115,499 L115,520 Q115,592 157,636 Q199,680 274,680 Q329,680 376,662 Q374,640 365,624 Q322,633 285,633 Q169,633 169,520 L169,500 L307,500 Q323,500 323,486 Q323,480 319,465 L317,456 L169,456 L169,43 L267,43 Q283,43 283,29 Q283,23 279,8 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/17.V" /><use x="634" y="0" xlink:href="#GPOS-1/17.f" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/18"
+        ft:render="Vﬂ" ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 1239 1383"><symbol id="GPOS-1/18.V" overflow="visible"><path d="M300,-2 L77,599 L19,599 Q3,599 3,613 Q3,620 8,637 L10,645 L206,645 Q210,639 210,629 Q210,618 203,609 L136,601 L325,82 L514,599 L456,599 Q440,599 440,613 Q440,620 445,637 L447,645 L638,645 Q642,639 642,629 Q642,618 635,609 L568,601 L344,-2 Q334,-4 322,-4 Q310,-4 300,-2 Z" /></symbol><symbol id="GPOS-1/18.fl" overflow="visible"><path d="M558,0 L365,0 Q362,8 362,14 Q362,23 368,33 L436,41 L436,594 Q369,633 295,633 Q169,633 169,520 L169,500 L307,500 Q323,500 323,486 Q323,480 319,465 L317,456 L169,456 L169,43 L227,43 Q243,43 243,29 Q243,23 239,8 L237,0 L44,0 Q41,8 41,14 Q41,23 47,33 L115,41 L115,456 L39,456 Q36,464 36,470 Q36,480 42,490 L115,499 L115,520 Q115,597 162,638 Q210,680 288,680 Q329,680 364,670 Q400,660 430,644 L462,675 Q479,666 490,653 L490,43 L548,43 Q564,43 564,29 Q564,23 560,8 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/18.V" /><use x="634" y="0" xlink:href="#GPOS-1/18.fl" /></svg></td>
+
+    <td class="expected" ft:id="GPOS-1/19"
+        ft:render="V." ft:font="TestGPOSOne.ttf"><svg version="1.1" viewBox="0 -455 724 1383"><symbol id="GPOS-1/19.V" overflow="visible"><path d="M300,-2 L77,599 L19,599 Q3,599 3,613 Q3,620 8,637 L10,645 L206,645 Q210,639 210,629 Q210,618 203,609 L136,601 L325,82 L514,599 L456,599 Q440,599 440,613 Q440,620 445,637 L447,645 L638,645 Q642,639 642,629 Q642,618 635,609 L568,601 L344,-2 Q334,-4 322,-4 Q310,-4 300,-2 Z" /></symbol><symbol id="GPOS-1/19.period" overflow="visible"><path d="M160,37 Q160,-10 110,-10 Q60,-10 60,37 Q60,84 110,84 Q160,84 160,37 Z" /></symbol><use x="0" y="0" xlink:href="#GPOS-1/19.V" /><use x="504" y="0" xlink:href="#GPOS-1/19.period" /></svg></td>
+
+  </tr>
+
+  <tr>
+    <th>Observed</th>
+    <td class="observed" ft:id="GPOS-1/1"/>
+    <td class="observed" ft:id="GPOS-1/2"/>
+    <td class="observed" ft:id="GPOS-1/3"/>
+    <td class="observed" ft:id="GPOS-1/4"/>
+    <td class="observed" ft:id="GPOS-1/5"/>
+    <td class="observed" ft:id="GPOS-1/6"/>
+    <td class="observed" ft:id="GPOS-1/7"/>
+    <td class="observed" ft:id="GPOS-1/8"/>
+    <td class="observed" ft:id="GPOS-1/9"/>
+    <td class="observed" ft:id="GPOS-1/10"/>
+    <td class="observed" ft:id="GPOS-1/11"/>
+    <td class="observed" ft:id="GPOS-1/12"/>
+    <td class="observed" ft:id="GPOS-1/13"/>
+    <td class="observed" ft:id="GPOS-1/14"/>
+    <td class="observed" ft:id="GPOS-1/15"/>
+    <td class="observed" ft:id="GPOS-1/16"/>
+    <td class="observed" ft:id="GPOS-1/17"/>
+    <td class="observed" ft:id="GPOS-1/18"/>
+    <td class="observed" ft:id="GPOS-1/19"/>
+  </tr>
+
+  <tr>
+    <th class="conformance-header">Conformance</th>
+    <td class="conformance" ft:id="GPOS-1/1"/>
+    <td class="conformance" ft:id="GPOS-1/2"/>
+    <td class="conformance" ft:id="GPOS-1/3"/>
+    <td class="conformance" ft:id="GPOS-1/4"/>
+    <td class="conformance" ft:id="GPOS-1/5"/>
+    <td class="conformance" ft:id="GPOS-1/6"/>
+    <td class="conformance" ft:id="GPOS-1/7"/>
+    <td class="conformance" ft:id="GPOS-1/8"/>
+    <td class="conformance" ft:id="GPOS-1/9"/>
+    <td class="conformance" ft:id="GPOS-1/10"/>
+    <td class="conformance" ft:id="GPOS-1/11"/>
+    <td class="conformance" ft:id="GPOS-1/12"/>
+    <td class="conformance" ft:id="GPOS-1/13"/>
+    <td class="conformance" ft:id="GPOS-1/14"/>
+    <td class="conformance" ft:id="GPOS-1/15"/>
+    <td class="conformance" ft:id="GPOS-1/16"/>
+    <td class="conformance" ft:id="GPOS-1/17"/>
+    <td class="conformance" ft:id="GPOS-1/18"/>
+    <td class="conformance" ft:id="GPOS-1/19"/>
+  </tr>
+
+</table>
+</body>
+</html>

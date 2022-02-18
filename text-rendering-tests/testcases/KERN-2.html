@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+    xmlns:ft="https://github.com/OpenType/fonttest"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Vollkorn|Vollkorn:i"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<h3 id="KERN-2">KERN–2</h3>
+
+<div class="desc">
+  Although kerning is typically <em>reducing</em> space between
+  letter pairs, it’s entirely valid for a font to <em>increase</em> it.
+  This test verifies that an implementation can handle
+  such kerning tables. If your implementation works correctly,
+  you should see four groups separated by whitespace.
+</div>
+
+<table>
+  <tr>
+    <th>Expected</th>
+    <td class="expected" ft:id="KERN-2/1"
+        ft:render="uııTııTııu" ft:font="TestKERNOne.otf"><svg version="1.1" viewBox="0 -200 3900 1200"><symbol id="KERN-2/1.u" overflow="visible"><path d="M50,0 L350,0 L350,500 L250,500 L250,100 L150,100 L150,500 L50,500 Z" /></symbol><symbol id="KERN-2/1.dotlessi" overflow="visible"><path d="M50,0 L150,0 L150,500 L50,500 Z" /></symbol><symbol id="KERN-2/1.T" overflow="visible"><path d="M50,500 L150,500 L150,600 L250,600 L250,0 L350,0 L350,600 L450,600 L450,500 L550,500 L550,700 L50,700 Z" /></symbol><use x="0" y="0" xlink:href="#KERN-2/1.u" /><use x="400" y="0" xlink:href="#KERN-2/1.dotlessi" /><use x="1100" y="0" xlink:href="#KERN-2/1.dotlessi" /><use x="1100" y="0" xlink:href="#KERN-2/1.T" /><use x="1500" y="0" xlink:href="#KERN-2/1.dotlessi" /><use x="2200" y="0" xlink:href="#KERN-2/1.dotlessi" /><use x="2200" y="0" xlink:href="#KERN-2/1.T" /><use x="2600" y="0" xlink:href="#KERN-2/1.dotlessi" /><use x="3300" y="0" xlink:href="#KERN-2/1.dotlessi" /><use x="3500" y="0" xlink:href="#KERN-2/1.u" /></svg></td>
+  </tr>
+  <tr>
+    <th>Observed</th>
+    <td class="observed" ft:id="KERN-2/1"/>
+  </tr>
+  <tr>
+    <th class="conformance-header">Conformance</th>
+    <td class="conformance" ft:id="KERN-2/1"/>
+  </tr>
+
+</table>
+
+</body>
+</html>

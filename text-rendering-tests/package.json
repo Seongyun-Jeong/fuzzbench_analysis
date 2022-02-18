@@ -1,0 +1,15 @@
+{
+  "name": "text-rendering-tests",
+  "version": "1.0.0",
+  "description": "OpenType test suite",
+  "dependencies": {
+    "fontkit": "^1.7.1",
+    "iconv-lite": "^0.4.17",
+    "opentype.js": "^0.8.0"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unicode-org/text-rendering-tests.git"
+  }
+}

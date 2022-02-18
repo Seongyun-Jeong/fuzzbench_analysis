@@ -1,0 +1,3 @@
+mode=markdown
+
+begin <tag> `code` <another>`code`<not a tag> end

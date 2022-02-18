@@ -1,0 +1,3 @@
+These files are used to run the Grok test suite.
+
+(this file is also used for the automatic location of GROK-TEST-DATA by cmake)

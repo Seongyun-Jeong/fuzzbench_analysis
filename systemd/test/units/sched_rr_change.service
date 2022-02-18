@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: LGPL-2.1-or-later
+[Unit]
+Description=Change prio
+
+[Service]
+ExecStart=/bin/true
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=1
+CPUSchedulingPriority=2
+CPUSchedulingPriority=99

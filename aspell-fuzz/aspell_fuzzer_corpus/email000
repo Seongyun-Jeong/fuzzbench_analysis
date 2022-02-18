@@ -1,0 +1,14 @@
+mode=email
+add-email-quote=:
+
+> Don't check me
+
+Check me.
+
+: Don't check me
+
+: > Don't check me also
+: Still quoted
+
+And check me.
+

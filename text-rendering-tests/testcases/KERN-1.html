@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+    xmlns:ft="https://github.com/OpenType/fonttest"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Vollkorn|Vollkorn:i"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<h3 id="KERN-1">KERN–1</h3>
+
+<div class="desc">
+  The <a href="../fonts/TestKERNOne.otf">font</a> for this test case
+  contains a <em>‘kern’</em> table of format 0, which in turns
+  contains a single format 0 subtable.  Without kerning, the glyphs
+  for <em>T</em>, <em>u</em> and the dotless <em>ı</em> will look like
+  normal letters. However, if your implementation correctly applies
+  the font’s kerning data, the shapes will join to form a geometric
+  pattern.  If you can still discern the original
+  letters <em>ıTuTuTı</em> in the rendering, it’s a sign that your
+  implementation fails to correctly handle kerning.
+  See also <a href="https://github.com/harfbuzz/harfbuzz/issues/1255">HarfBuzz
+  bug 1255</a>.
+</div>
+
+<table>
+  <tr>
+    <th>Expected</th>
+    <td class="expected" ft:id="KERN-1/1"
+        ft:render="ıTuTuTı" ft:font="TestKERNOne.otf"><svg version="1.1" viewBox="0 -200 1800 1200"><symbol id="KERN-1/1.dotlessi" overflow="visible"><path d="M50,0 L150,0 L150,500 L50,500 Z" /></symbol><symbol id="KERN-1/1.T" overflow="visible"><path d="M50,500 L150,500 L150,600 L250,600 L250,0 L350,0 L350,600 L450,600 L450,500 L550,500 L550,700 L50,700 Z" /></symbol><symbol id="KERN-1/1.u" overflow="visible"><path d="M50,0 L350,0 L350,500 L250,500 L250,100 L150,100 L150,500 L50,500 Z" /></symbol><use x="0" y="0" xlink:href="#KERN-1/1.dotlessi" /><use x="0" y="0" xlink:href="#KERN-1/1.T" /><use x="400" y="0" xlink:href="#KERN-1/1.u" /><use x="600" y="0" xlink:href="#KERN-1/1.T" /><use x="1000" y="0" xlink:href="#KERN-1/1.u" /><use x="1200" y="0" xlink:href="#KERN-1/1.T" /><use x="1600" y="0" xlink:href="#KERN-1/1.dotlessi" /></svg></td>
+  </tr>
+  <tr>
+    <th>Observed</th>
+    <td class="observed" ft:id="KERN-1/1"/>
+  </tr>
+  <tr>
+    <th class="conformance-header">Conformance</th>
+    <td class="conformance" ft:id="KERN-1/1"/>
+  </tr>
+
+</table>
+
+</body>
+</html>

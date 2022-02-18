@@ -1,0 +1,145 @@
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+IF(MSVC)
+    string(APPEND CMAKE_CXX_FLAGS " /EHsc")
+ENDIF(MSVC)
+
+# First thing define the common source:
+set(common_SRCS
+  ${GROK_SOURCE_DIR}/src/bin/common/convert.cpp
+  ${GROK_SOURCE_DIR}/src/bin/common/convert.h
+  ${GROK_SOURCE_DIR}/src/bin/image_format/Serializer.cpp
+  ${GROK_SOURCE_DIR}/src/bin/image_format/MemManager.cpp
+  ${GROK_SOURCE_DIR}/src/bin/image_format/BufferPool.cpp
+  ${GROK_SOURCE_DIR}/src/bin/image_format/IImageFormat.h
+  ${GROK_SOURCE_DIR}/src/bin/image_format/ImageFormat.cpp
+  ${GROK_SOURCE_DIR}/src/bin/image_format/FileStreamIO.h
+  ${GROK_SOURCE_DIR}/src/bin/image_format/FileStreamIO.cpp
+  ${GROK_SOURCE_DIR}/src/bin/image_format/ImageFormat.h
+  ${GROK_SOURCE_DIR}/src/bin/image_format/PNMFormat.cpp
+  ${GROK_SOURCE_DIR}/src/bin/image_format/PNMFormat.h
+  ${GROK_SOURCE_DIR}/src/bin/image_format/PGXFormat.cpp
+  ${GROK_SOURCE_DIR}/src/bin/image_format/PGXFormat.h
+  ${GROK_SOURCE_DIR}/src/bin/image_format/BMPFormat.cpp
+  ${GROK_SOURCE_DIR}/src/bin/image_format/BMPFormat.h
+  ${GROK_SOURCE_DIR}/src/bin/image_format/RAWFormat.cpp
+  ${GROK_SOURCE_DIR}/src/bin/image_format/RAWFormat.h
+  ${GROK_SOURCE_DIR}/src/bin/image_format/TIFFFormat.h
+  ${GROK_SOURCE_DIR}/src/bin/image_format/PNGFormat.h
+  ${GROK_SOURCE_DIR}/src/bin/image_format/JPEGFormat.h
+  ${GROK_SOURCE_DIR}/src/bin/common/common.cpp
+  ${GROK_SOURCE_DIR}/src/bin/common/common.h
+  ${GROK_SOURCE_DIR}/src/bin/common/grk_string.h
+  ${GROK_SOURCE_DIR}/src/bin/common/exif.cpp
+  ${GROK_SOURCE_DIR}/src/bin/common/spdlog/spdlog.cpp
+  ${GROK_SOURCE_DIR}/src/bin/common/spdlog/color_sinks.cpp
+  ${GROK_SOURCE_DIR}/src/bin/common/spdlog/stdout_sinks.cpp
+  ${GROK_SOURCE_DIR}/src/bin/common/spdlog/fmt.cpp
+  ${GROK_SOURCE_DIR}/src/bin/common/spdlog/async.cpp     
+  ${GROK_SOURCE_DIR}/src/bin/common/spdlog/file_sinks.cpp
+  )
+
+if(GROK_HAVE_LIBTIFF)
+	list(APPEND common_SRCS ../image_format/TIFFFormat.cpp)
+endif()
+if(GROK_HAVE_LIBPNG)
+	list(APPEND common_SRCS ../image_format/PNGFormat.cpp)
+endif()
+if(GROK_HAVE_LIBJPEG)
+	list(APPEND common_SRCS ../image_format/JPEGFormat.cpp)
+	list(APPEND common_SRCS ../image_format/iccjpeg.cpp)
+	list(APPEND common_SRCS ../image_format/iccjpeg.h)
+endif()
+if(GROK_HAVE_URING)
+	list(APPEND common_SRCS ../image_format/FileUringIO.cpp)
+endif()
+
+# Headers file are located here:
+include_directories(
+  ${${GROK_NAMESPACE}_BINARY_DIR}/src/lib/jp2
+  ${${GROK_NAMESPACE}_BINARY_DIR}/src/bin/common
+  ${GROK_SOURCE_DIR}/src/lib/jp2
+  ${GROK_SOURCE_DIR}/src/bin/common
+  ${GROK_SOURCE_DIR}/src/bin/image_format
+  ${GROK_SOURCE_DIR}/src/bin/jp2
+  ${LCMS_INCLUDE_DIRNAME}
+  ${PNG_INCLUDE_DIRNAME}
+  ${TIFF_INCLUDE_DIRNAME}
+  ${JPEG_INCLUDE_DIRNAME}
+  ${GROK_SOURCE_DIR}/src/include
+  )
+
+if(WIN32)
+  add_definitions(-DNOMINMAX)
+  if(BUILD_SHARED_LIBS)
+    add_definitions(-DGRK_EXPORTS)
+  else()
+    add_definitions(-DGRK_STATIC)
+  endif()
+endif()
+
+add_definitions(-DSPDLOG_COMPILED_LIB)
+
+
+# Loop over all executables:
+foreach(exe grk_decompress grk_compress grk_dump)
+  add_executable(${exe} ${exe}.cpp ${common_SRCS})
+  target_compile_options(${exe} PRIVATE ${GROK_COMPILE_OPTIONS})
+  if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+	target_link_options(${exe}  PUBLIC "LINKER:-z,now")
+  endif()
+
+  target_link_libraries(${exe} 
+    ${PNG_LIBNAME} ${TIFF_LIBNAME} ${LCMS_LIBNAME}
+    ${JPEG_LIBNAME} ${CMAKE_THREAD_LIBS_INIT} )
+  # perform static link if only BUILD_STATIC_LIBS is turned on
+  if (BUILD_STATIC_LIBS AND NOT BUILD_SHARED_LIBS)
+      # for some reason, ${CMAKE_THREAD_LIBS_INIT}  doesn't work here
+      if(UNIX)
+  		target_link_options(${exe}  PUBLIC "-pthread")
+  	  endif()
+	  target_link_libraries(${exe} ${GROK_LIBRARY_NAME}_static hwy ${CMAKE_DL_LIBS})
+  else()
+	  target_link_libraries(${exe} ${GROK_LIBRARY_NAME} ${CMAKE_DL_LIBS} )
+  endif()
+
+  # To support universal exe:
+  if(ZLIB_FOUND AND APPLE)
+    target_link_libraries(${exe} z)
+  else(ZLIB_FOUND AND APPLE)
+    target_link_libraries(${exe} ${Z_LIBNAME})
+  endif()
+  
+  # liburing
+  if(URING)
+	  target_link_libraries(${exe} uring)
+  endif()
+  
+  if (PERLLIBS_FOUND)
+  	include_directories(${PERL_INCLUDE_PATH})
+   	target_link_libraries(${exe} ${PERL_LIBRARY} )
+  endif()
+  
+  # Install exe
+  install(TARGETS ${exe}
+    EXPORT GrokTargets
+    DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Applications
+  )
+  if(GROK_USE_DSYMUTIL)
+    add_custom_command(TARGET ${exe} POST_BUILD
+    COMMAND "dsymutil" "$<TARGET_FILE:${exe}>"
+    COMMENT "dsymutil $<TARGET_FILE:${exe}>"
+    DEPENDS ${exe})
+  endif()
+endforeach()
+
+if(BUILD_DOC)
+# Install man pages
+install(
+  FILES       ${GROK_SOURCE_DIR}/doc/man/man1/grk_compress.1
+              ${GROK_SOURCE_DIR}/doc/man/man1/grk_decompress.1
+              ${GROK_SOURCE_DIR}/doc/man/man1/grk_dump.1
+  DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+#
+endif()

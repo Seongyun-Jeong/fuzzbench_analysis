@@ -1,0 +1,7 @@
+bslot=@BSLOT@
+
+Name: tpm2
+Description: TPM simulator extracted from the TCG TPM 2.0 library specification
+Version: ${bslot}
+Requires.private: libcrypto
+Libs: -ltpm2

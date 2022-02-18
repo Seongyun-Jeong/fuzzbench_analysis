@@ -1,0 +1,95 @@
+#!/usr/bin/env node
+
+var fontkit = require('fontkit');
+
+// Poor man's argument parser
+var argv = {};
+process.argv.forEach(function (arg) {
+  var match = arg.match(/^--(.+)=(.+)$/);
+  if (match) {
+    argv[match[1]] = match[2];
+  }
+});
+
+function render() {
+  var font = fontkit.openSync(argv.font);
+
+  if (argv.variation) {
+    var settings = {};
+    argv.variation.split(';').forEach(function (setting) {
+      var parts = setting.split(':');
+      settings[parts[0]] = parts[1];
+    });
+
+    font = font.getVariation(settings);
+  }
+
+  var run = font.layout(argv.render);
+  var gids = {};
+
+  var glyphs = run.glyphs.map(function (glyph) {
+    if (gids[glyph.id]) return;
+    gids[glyph.id] = true;
+
+    // Get path and normalize
+    var path = glyph.getScaledPath(1000).mapPoints(function (x, y) {
+      return [Math.floor(x), Math.floor(y)];
+    });
+
+    // Filter out lines back to the starting point of a contour
+    var startX = 0, startY = 0;
+    var closed = false;
+    path.commands = path.commands.filter(function (c, i) {
+      if (c.command === 'moveTo') {
+        startX = c.args[0];
+        startY = c.args[1];
+      } else if (c.command === 'lineTo' && (!path.commands[i + 1] || path.commands[i + 1].command === 'closePath')) {
+        return Math.abs(c.args[0] - startX) > 1 || Math.abs(c.args[1] - startY) > 1;
+      }
+
+      return true;
+    });
+
+    var svgPath = path.toSVG()
+      .replace(/(\d+) (-?\d+)/g, '$1,$2')
+      .replace(/(\d)([A-Z])/g, '$1 $2')
+      .replace(/Z([^\s])/g, 'Z $1');
+
+    return (
+      '<symbol id="' + argv.testcase + '.' + (glyph.name || 'gid' + glyph.id) + '" overflow="visible">' +
+        '<path d="' + svgPath + '" />' +
+      '</symbol>'
+    );
+  });
+
+  var scale = 1 / font.unitsPerEm * 1000;
+  var x = 0, y = 0;
+  var svg = run.glyphs.map(function (glyph, index) {
+    var pos = run.positions[index];
+    var xPos = Math.round(x + pos.xOffset * scale);
+    var yPos = Math.round(y + pos.yOffset * scale);
+    var use = '<use x="' + xPos + '" y="' + yPos + '" xlink:href="#' + argv.testcase + '.' + (glyph.name || 'gid' + glyph.id) + '" />';
+    x += Math.round(pos.xAdvance * scale);
+    y += Math.round(pos.yAdvance * scale);
+    return use;
+  });
+
+  var bbox = [0, font.descent, run.advanceWidth, font.ascent - font.descent].map(function (x) {
+    return Math.round(x * scale)
+  });
+
+  console.log(
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<svg version="1.1" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="' + bbox.join(' ') + '">',
+      glyphs.join('\n'),
+      svg.join('\n'),
+    '</svg>'
+  );
+}
+
+try {
+  render();
+} catch (e) {
+  console.error(e.stack);
+  process.exit(1);
+}

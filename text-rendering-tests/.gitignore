@@ -1,0 +1,6 @@
+*~
+*.o
+*.a
+*.pyc
+node_modules/
+build/

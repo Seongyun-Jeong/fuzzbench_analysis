@@ -1,0 +1,6 @@
+mode=markdown
+
+begin [a link](
+  #target
+  "label"
+) end
